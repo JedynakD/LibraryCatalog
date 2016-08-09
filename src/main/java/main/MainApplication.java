@@ -19,7 +19,7 @@ public class MainApplication {
     private final static Logger LOGGER = Logger.getLogger(MainApplication.class);
 
     @Bean
-    public BookCheckOutService getBookCheckoutServiceService() {
+    public BookCheckOutService getBookCheckoutService() {
         return new BookCheckOutServiceImpl();
     }
 
