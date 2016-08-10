@@ -38,6 +38,20 @@
             <artifactId>spring-test</artifactId>
         </dependency>
 
+        <!--HIBERNATE-->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>5.2.1.Final</version>
+        </dependency>
+
+        <!--ORACLE OJDBC CONNECTOR-->
+        <dependency>
+            <groupId>ojdbc</groupId>
+            <artifactId>ojdbc</artifactId>
+            <version>14</version>
+        </dependency>
+
         <!--TESTING-->
         <dependency>
             <groupId>junit</groupId>
