@@ -1,5 +1,6 @@
 package service;
 
+import config.ApplicationConfiguration;
 import main.MainApplication;
 import model.Book;
 import org.junit.Test;
@@ -16,7 +17,7 @@ import static org.junit.Assert.*;
  */
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = MainApplication.class, loader = AnnotationConfigContextLoader.class)
+@ContextConfiguration(classes = ApplicationConfiguration.class, loader = AnnotationConfigContextLoader.class)
 public class BookCheckOutServiceTest {
 
     @Autowired
