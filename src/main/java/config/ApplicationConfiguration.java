@@ -1,5 +1,7 @@
 package config;
 
+import dao.BookCheckOutDAOImpl;
+import dao.BookCheckoutDAO;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import service.BookCheckOutService;
@@ -10,6 +12,11 @@ import service.BookCheckOutServiceImpl;
  */
 @Configuration
 public class ApplicationConfiguration {
+    @Bean
+    public BookCheckoutDAO getBookCheckoutDAO() {
+        return new BookCheckOutDAOImpl();
+    }
+
     @Bean
     public BookCheckOutService getBookCheckoutService() {
         return new BookCheckOutServiceImpl();
