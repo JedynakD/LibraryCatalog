@@ -18,7 +18,7 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = ApplicationConfiguration.class, loader = AnnotationConfigContextLoader.class)
-public class BookCheckOutServiceTest {
+public class BookCheckOutServiceImplTest {
 
     @Autowired
     BookCheckOutService bookCheckOutService;
