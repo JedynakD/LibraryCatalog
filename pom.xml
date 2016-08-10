@@ -47,10 +47,11 @@
 
         <!--ORACLE OJDBC CONNECTOR-->
         <dependency>
-            <groupId>ojdbc</groupId>
-            <artifactId>ojdbc</artifactId>
-            <version>14</version>
+            <groupId>com.oracle</groupId>
+            <artifactId>ojdbc6</artifactId>
+            <version>11.2.0</version>
         </dependency>
+
 
         <!--TESTING-->
         <dependency>
