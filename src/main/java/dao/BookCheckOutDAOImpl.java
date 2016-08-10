@@ -15,7 +15,8 @@ public class BookCheckOutDAOImpl implements BookCheckoutDAO {
         session.beginTransaction();
 
         Query query = session.createQuery("select name from Book where name=" + "\'" + bookName + "\'");
-        Book object = (Book) query.getSingleResult();
+        Book object = (Book) query.uniqueResult();
+
         session.getTransaction().commit();
         return object;
     }

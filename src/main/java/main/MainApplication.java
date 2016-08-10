@@ -16,7 +16,7 @@ public class MainApplication {
     public static void main(String[] args) {
         ApplicationContext applicationContext = new AnnotationConfigApplicationContext(ApplicationConfiguration.class);
         BookCheckOutService bookCheckOutService = applicationContext.getBean(BookCheckOutService.class);
-        Book book = bookCheckOutService.checkout("Some book");
+        Book book = bookCheckOutService.checkout("To Kill a Mockingbird");
         LOGGER.info(book);
     }
 }
