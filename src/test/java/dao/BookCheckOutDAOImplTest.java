@@ -17,6 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 /**
  * Created by Damian on 2016-08-11.
@@ -31,6 +32,8 @@ public class BookCheckOutDAOImplTest {
             new Book("To Kill a Mockingbird", "Harper Lee"),
             new Book("1984", "George Orwell")));
 
+    private static final Book EMPTY_BOOK = new Book("", "");
+
     @Autowired
     private BookCheckOutDAO bookCheckoutDAO;
 
@@ -38,23 +41,31 @@ public class BookCheckOutDAOImplTest {
     @Rollback(true)
     @Transactional
     public void shouldReturnAddedBook() {
+        //given
         Book expected = BOOKS.get(0);
         bookCheckoutDAO.save(expected);
 
-        Book actual = bookCheckoutDAO.checkout("To Kill a Mockingbird");
-        assertEquals("To Kill a Mockingbird", actual.getName());
-        assertEquals("Harper Lee", actual.getAuthorName());
+        //when
+        Book actual = bookCheckoutDAO.checkOut(expected.getName());
+
+        //then
+        assertEquals(expected.getName(), actual.getName());
+        assertEquals(expected.getAuthorName(), actual.getAuthorName());
     }
 
     @Test
     @Rollback(true)
     @Transactional
-    public void shouldNotReturnAddedBookWhenWrongBookNameInserted() {
+    public void shouldReturnEmptyBookWhenWantedBookIsNotPresent() {
+        //given
         Book expected = BOOKS.get(1);
         bookCheckoutDAO.save(expected);
 
-        Book actual = bookCheckoutDAO.checkout("Some title");
-        assertEquals("", actual.getName());
-        assertEquals("", actual.getAuthorName());
+        //when
+        Book actual = bookCheckoutDAO.checkOut(BOOKS.get(0).getName());
+
+        //then
+        assertEquals(EMPTY_BOOK.getName(), actual.getName());
+        assertEquals(EMPTY_BOOK.getAuthorName(), actual.getAuthorName());
     }
 }
