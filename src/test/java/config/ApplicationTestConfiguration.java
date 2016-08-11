@@ -6,7 +6,6 @@ import org.apache.tomcat.dbcp.dbcp.BasicDataSource;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 
@@ -14,10 +13,9 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 /**
- * Created by Damian on 2016-08-10.
+ * Created by Damian on 2016-08-11.
  */
-@Configuration
-public class ApplicationConfiguration {
+public class ApplicationTestConfiguration {
     @Bean
     public BookCheckOutDAO getBookCheckoutDAO() {
         return new BookCheckOutDAOImpl();
@@ -26,25 +24,25 @@ public class ApplicationConfiguration {
     @Bean
     public LocalSessionFactoryBean getSessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
-        sessionFactory.setDataSource(oracleDataSource());
+        sessionFactory.setDataSource(hsqlDataSource());
         sessionFactory.setPackagesToScan("model");
         sessionFactory.setHibernateProperties(getHibernateProperties());
         return sessionFactory;
     }
 
-    private static Properties getHibernateProperties() {
+    private Properties getHibernateProperties() {
         Properties properties = new Properties();
         properties.put("hibernate.show_sql", "true");
-        properties.put("hibernate.dialect", "org.hibernate.dialect.Oracle10gDialect");
-        properties.put("hibernate.hbm2ddl.auto", "update");
+        properties.put("hibernate.dialect", "org.hibernate.dialect.HSQLDialect");
+        properties.put("hibernate.hbm2ddl.auto", "create");
         return properties;
     }
 
-    private DataSource oracleDataSource() {
+    private DataSource hsqlDataSource() {
         BasicDataSource dataSource = new BasicDataSource();
-        dataSource.setDriverClassName("oracle.jdbc.OracleDriver");
-        dataSource.setUrl("jdbc:oracle:thin:@//127.0.0.1:1521/xe");
-        dataSource.setUsername("LIBRARY_CATALOG");
+        dataSource.setDriverClassName("org.hsqldb.jdbcDriver");
+        dataSource.setUrl("jdbc:hsqldb:mem:testdb");
+        dataSource.setUsername("TEST");
         dataSource.setPassword("pass");
         return dataSource;
     }

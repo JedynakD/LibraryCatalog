@@ -1,23 +1,43 @@
 package dao;
 
 import model.Book;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.query.Query;
-import util.HibernateUtil;
+import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * Created by Damian on 2016-08-10.
  */
-public class BookCheckOutDAOImpl implements BookCheckoutDAO {
+
+public class BookCheckOutDAOImpl implements BookCheckOutDAO {
+    @Autowired
+    SessionFactory sessionFactory;
+
+    @Transactional
     @Override
     public Book checkout(String bookName) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
+        Session session = sessionFactory.getCurrentSession();
 
-        Query query = session.createQuery("select name from Book where name=" + "\'" + bookName + "\'");
-        Book object = (Book) query.uniqueResult();
+        Criteria criteria = session.createCriteria(Book.class);
+        criteria.add(Restrictions.eq("name", bookName));
+        List<Book> books = criteria.list();
 
-        session.getTransaction().commit();
-        return object;
+        if (!books.isEmpty()) {
+            Book object = books.get(0);
+            return object;
+        }
+        return new Book("", "");
+    }
+
+    @Transactional
+    @Override
+    public void save(Book book) {
+        Session session = sessionFactory.getCurrentSession();
+        session.persist(book);
     }
 }
