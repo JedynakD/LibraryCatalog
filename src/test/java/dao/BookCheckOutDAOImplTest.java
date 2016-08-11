@@ -41,7 +41,7 @@ public class BookCheckOutDAOImplTest {
         Book expected = BOOKS.get(0);
         bookCheckoutDAO.save(expected);
 
-        Book actual = bookCheckoutDAO.checkout("To Kill a Mockingbird");
+        Book actual = bookCheckoutDAO.checkOut("To Kill a Mockingbird");
         assertEquals("To Kill a Mockingbird", actual.getName());
         assertEquals("Harper Lee", actual.getAuthorName());
     }
@@ -53,7 +53,7 @@ public class BookCheckOutDAOImplTest {
         Book expected = BOOKS.get(1);
         bookCheckoutDAO.save(expected);
 
-        Book actual = bookCheckoutDAO.checkout("Some title");
+        Book actual = bookCheckoutDAO.checkOut("Some title");
         assertEquals("", actual.getName());
         assertEquals("", actual.getAuthorName());
     }
