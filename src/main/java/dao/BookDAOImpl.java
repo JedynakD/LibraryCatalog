@@ -14,13 +14,13 @@ import java.util.List;
  * Created by Damian on 2016-08-10.
  */
 
-public class BookCheckOutDAOImpl implements BookCheckOutDAO {
+public class BookDAOImpl implements BookDAO {
     @Autowired
     SessionFactory sessionFactory;
 
     @Transactional
     @Override
-    public Book checkOut(String bookName) {
+    public Book getBookByName(String bookName) {
         Session session = sessionFactory.getCurrentSession();
 
         Criteria criteria = session.createCriteria(Book.class);
@@ -39,5 +39,27 @@ public class BookCheckOutDAOImpl implements BookCheckOutDAO {
     public void save(Book book) {
         Session session = sessionFactory.getCurrentSession();
         session.persist(book);
+    }
+
+    @Override
+    public Book getBookByID(long id) {
+        Session session = sessionFactory.getCurrentSession();
+        Book book = (Book) session.get(Book.class, id);
+        if (book == null) {
+            return new Book("", "");
+        }
+        return (Book) session.get(Book.class, id);
+    }
+
+    @Override
+    public void update(Book book) {
+        Session session = sessionFactory.getCurrentSession();
+        session.update(book);
+    }
+
+    @Override
+    public void delete(Book book) {
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(book);
     }
 }

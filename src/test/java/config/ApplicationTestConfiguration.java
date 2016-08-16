@@ -1,13 +1,15 @@
 package config;
 
-import dao.BookCheckOutDAO;
-import dao.BookCheckOutDAOImpl;
+import dao.BookDAO;
+import dao.BookDAOImpl;
 import org.apache.tomcat.dbcp.dbcp.BasicDataSource;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
+import service.LibraryCatalogService;
+import service.LibraryCatalogServiceImpl;
 
 import javax.sql.DataSource;
 import java.util.Properties;
@@ -17,8 +19,8 @@ import java.util.Properties;
  */
 public class ApplicationTestConfiguration {
     @Bean
-    public BookCheckOutDAO getBookCheckoutDAO() {
-        return new BookCheckOutDAOImpl();
+    public BookDAO getBookDAO() {
+        return new BookDAOImpl();
     }
 
     @Bean
