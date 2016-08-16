@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
+import service.LibraryCatalogService;
+import service.LibraryCatalogServiceImpl;
 
 import javax.sql.DataSource;
 import java.util.Properties;
@@ -17,8 +19,13 @@ import java.util.Properties;
  */
 public class ApplicationTestConfiguration {
     @Bean
-    public BookDAO getBookCheckoutDAO() {
+    public BookDAO getBookDAO() {
         return new BookDAOImpl();
+    }
+
+    @Bean
+    public LibraryCatalogService getBookCheckOutService() {
+        return new LibraryCatalogServiceImpl();
     }
 
     @Bean

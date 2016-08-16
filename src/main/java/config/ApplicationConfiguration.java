@@ -9,6 +9,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
+import service.LibraryCatalogService;
+import service.LibraryCatalogServiceImpl;
 
 import javax.sql.DataSource;
 import java.util.Properties;
@@ -21,6 +23,11 @@ public class ApplicationConfiguration {
     @Bean
     public BookDAO getBookCheckoutDAO() {
         return new BookDAOImpl();
+    }
+
+    @Bean
+    public LibraryCatalogService getBookCheckOutService() {
+        return new LibraryCatalogServiceImpl();
     }
 
     @Bean
