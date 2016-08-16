@@ -1,7 +1,7 @@
 package config;
 
-import dao.LibraryCatalogDAO;
-import dao.LibraryCatalogDAOImpl;
+import dao.BookDAO;
+import dao.BookDAOImpl;
 import org.apache.tomcat.dbcp.dbcp.BasicDataSource;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +19,8 @@ import java.util.Properties;
 @Configuration
 public class ApplicationConfiguration {
     @Bean
-    public LibraryCatalogDAO getBookCheckoutDAO() {
-        return new LibraryCatalogDAOImpl();
+    public BookDAO getBookCheckoutDAO() {
+        return new BookDAOImpl();
     }
 
     @Bean
