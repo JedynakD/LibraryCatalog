@@ -40,7 +40,7 @@ public class LibraryCatalogDAOImplTest {
     private static final Book EMPTY_BOOK = new Book("", "");
 
     @Autowired
-    private LibraryCatalogDAO bookCheckoutDAO;
+    private LibraryCatalogDAO libraryCatalogDAO;
 
     @Test
     @Rollback(true)
@@ -48,10 +48,10 @@ public class LibraryCatalogDAOImplTest {
     public void shouldReturnAddedBook() {
         //given
         Book expected = BOOKS.get(0);
-        bookCheckoutDAO.save(expected);
+        libraryCatalogDAO.save(expected);
 
         //when
-        Book actual = bookCheckoutDAO.getBookByName(expected.getName());
+        Book actual = libraryCatalogDAO.getBookByName(expected.getName());
 
         //then
         assertEquals(expected.getName(), actual.getName());
@@ -64,10 +64,10 @@ public class LibraryCatalogDAOImplTest {
     public void shouldReturnEmptyBookWhenWantedBookIsNotPresent() {
         //given
         Book expected = BOOKS.get(1);
-        bookCheckoutDAO.save(expected);
+        libraryCatalogDAO.save(expected);
 
         //when
-        Book actual = bookCheckoutDAO.getBookByName("Some name");
+        Book actual = libraryCatalogDAO.getBookByName("Some name");
 
         //then
         assertEquals(EMPTY_BOOK.getName(), actual.getName());
@@ -80,10 +80,10 @@ public class LibraryCatalogDAOImplTest {
     public void shouldReturnBookByIdWhenBookWithThatIdExists() {
         //given
         Book expected = BOOKS.get(2);
-        bookCheckoutDAO.save(expected);
+        libraryCatalogDAO.save(expected);
 
         //when
-        Book actual = bookCheckoutDAO.getBookByID(BOOKS.get(2).getId());
+        Book actual = libraryCatalogDAO.getBookByID(BOOKS.get(2).getId());
 
         //then
         assertEquals(expected.getId(), actual.getId());
@@ -95,10 +95,10 @@ public class LibraryCatalogDAOImplTest {
     public void shouldReturnEmptyBookWhenBookWithInputIdDoesNotExist() {
         //given
         Book expected = BOOKS.get(3);
-        bookCheckoutDAO.save(expected);
+        libraryCatalogDAO.save(expected);
 
         //when
-        Book actual = bookCheckoutDAO.getBookByID(3);
+        Book actual = libraryCatalogDAO.getBookByID(3);
 
         //then
         assertEquals(EMPTY_BOOK, actual);
@@ -110,12 +110,12 @@ public class LibraryCatalogDAOImplTest {
     public void shouldUpdateBookName() {
         //given
         Book expected = BOOKS.get(4);
-        bookCheckoutDAO.save(expected);
+        libraryCatalogDAO.save(expected);
 
         //when
         expected.setAuthorName(BOOKS.get(0).getAuthorName());
-        bookCheckoutDAO.update(expected);
-        Book actual = bookCheckoutDAO.getBookByName(expected.getName());
+        libraryCatalogDAO.update(expected);
+        Book actual = libraryCatalogDAO.getBookByName(expected.getName());
 
         //then
         assertEquals(BOOKS.get(0).getAuthorName(), actual.getAuthorName());
@@ -127,11 +127,11 @@ public class LibraryCatalogDAOImplTest {
     public void shouldReturnEmptyBookWhenGettingDeletedBook() {
         //given
         Book expected = BOOKS.get(5);
-        bookCheckoutDAO.save(expected);
+        libraryCatalogDAO.save(expected);
 
         //when
-        bookCheckoutDAO.delete(expected);
-        Book actual = bookCheckoutDAO.getBookByName(expected.getName());
+        libraryCatalogDAO.delete(expected);
+        Book actual = libraryCatalogDAO.getBookByName(expected.getName());
 
         //then
         assertEquals(EMPTY_BOOK, actual);
