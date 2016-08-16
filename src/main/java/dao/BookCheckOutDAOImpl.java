@@ -50,4 +50,16 @@ public class BookCheckOutDAOImpl implements BookCheckOutDAO {
         }
         return (Book) session.get(Book.class, id);
     }
+
+    @Override
+    public void update(Book book) {
+        Session session = sessionFactory.getCurrentSession();
+        session.update(book);
+    }
+
+    @Override
+    public void delete(Book book) {
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(book);
+    }
 }

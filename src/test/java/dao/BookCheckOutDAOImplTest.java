@@ -33,7 +33,9 @@ public class BookCheckOutDAOImplTest {
             new Book("To Kill a Mockingbird", "Harper Lee"),
             new Book("1984", "George Orwell"),
             new Book("Pride and Prejudice ", "Jane Austen"),
-            new Book("Gone with the Wind ", "Margaret Mitchell")));
+            new Book("Gone with the Wind", "Margaret Mitchell"),
+            new Book("Romeo and Juliet", "William Shakespeare"),
+            new Book("Lord of the Flies", "William Golding")));
 
     private static final Book EMPTY_BOOK = new Book("", "");
 
@@ -96,9 +98,44 @@ public class BookCheckOutDAOImplTest {
         bookCheckoutDAO.save(expected);
 
         //when
-        Book actual = bookCheckoutDAO.getBookByID(5);
+        Book actual = bookCheckoutDAO.getBookByID(3);
 
         //then
         assertEquals(EMPTY_BOOK, actual);
     }
+
+    @Test
+    @Rollback(true)
+    @Transactional
+    public void shouldUpdateBookName() {
+        //given
+        Book expected = BOOKS.get(4);
+        bookCheckoutDAO.save(expected);
+
+        //when
+        expected.setAuthorName(BOOKS.get(0).getAuthorName());
+        bookCheckoutDAO.update(expected);
+        Book actual = bookCheckoutDAO.getBookByName(expected.getName());
+
+        //then
+        assertEquals(BOOKS.get(0).getAuthorName(), actual.getAuthorName());
+    }
+
+    @Test
+    @Rollback(true)
+    @Transactional
+    public void shouldReturnEmptyBookWhenGettingDeletedBook() {
+        //given
+        Book expected = BOOKS.get(5);
+        bookCheckoutDAO.save(expected);
+
+        //when
+        bookCheckoutDAO.delete(expected);
+        Book actual = bookCheckoutDAO.getBookByName(expected.getName());
+
+        //then
+        assertEquals(EMPTY_BOOK, actual);
+    }
+
+
 }

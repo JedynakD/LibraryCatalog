@@ -11,4 +11,8 @@ public interface BookCheckOutDAO {
     void save(Book book);
 
     Book getBookByID(long id);
+
+    void update(Book book);
+
+    void delete(Book book);
 }
