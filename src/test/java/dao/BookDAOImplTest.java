@@ -137,5 +137,4 @@ public class BookDAOImplTest {
         assertEquals(EMPTY_BOOK, actual);
     }
 
-
 }

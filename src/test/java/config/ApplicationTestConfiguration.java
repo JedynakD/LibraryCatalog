@@ -24,11 +24,6 @@ public class ApplicationTestConfiguration {
     }
 
     @Bean
-    public LibraryCatalogService getBookCheckOutService() {
-        return new LibraryCatalogServiceImpl();
-    }
-
-    @Bean
     public LocalSessionFactoryBean getSessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(hsqlDataSource());
