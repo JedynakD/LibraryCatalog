@@ -27,7 +27,7 @@ import static org.junit.Assert.assertTrue;
 @ContextConfiguration(classes = ApplicationTestConfiguration.class, loader = AnnotationConfigContextLoader.class)
 @RunWith(SpringJUnit4ClassRunner.class)
 @EnableTransactionManagement
-public class BookCheckOutDAOImplTest {
+public class LibraryCatalogDAOImplTest {
 
     private static final List<Book> BOOKS = new ArrayList<>(Arrays.asList(
             new Book("To Kill a Mockingbird", "Harper Lee"),
@@ -40,7 +40,7 @@ public class BookCheckOutDAOImplTest {
     private static final Book EMPTY_BOOK = new Book("", "");
 
     @Autowired
-    private BookCheckOutDAO bookCheckoutDAO;
+    private LibraryCatalogDAO bookCheckoutDAO;
 
     @Test
     @Rollback(true)

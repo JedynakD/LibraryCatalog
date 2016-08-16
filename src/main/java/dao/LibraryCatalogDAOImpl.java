@@ -14,7 +14,7 @@ import java.util.List;
  * Created by Damian on 2016-08-10.
  */
 
-public class BookCheckOutDAOImpl implements BookCheckOutDAO {
+public class LibraryCatalogDAOImpl implements LibraryCatalogDAO {
     @Autowired
     SessionFactory sessionFactory;
 
