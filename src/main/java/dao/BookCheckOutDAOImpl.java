@@ -20,7 +20,7 @@ public class BookCheckOutDAOImpl implements BookCheckOutDAO {
 
     @Transactional
     @Override
-    public Book checkOut(String bookName) {
+    public Book getBookByName(String bookName) {
         Session session = sessionFactory.getCurrentSession();
 
         Criteria criteria = session.createCriteria(Book.class);
@@ -39,5 +39,15 @@ public class BookCheckOutDAOImpl implements BookCheckOutDAO {
     public void save(Book book) {
         Session session = sessionFactory.getCurrentSession();
         session.persist(book);
+    }
+
+    @Override
+    public Book getBookByID(long id) {
+        Session session = sessionFactory.getCurrentSession();
+        Book book = (Book) session.get(Book.class, id);
+        if (book == null) {
+            return new Book("", "");
+        }
+        return (Book) session.get(Book.class, id);
     }
 }

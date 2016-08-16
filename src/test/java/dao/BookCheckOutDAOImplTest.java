@@ -18,6 +18,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by Damian on 2016-08-11.
@@ -30,7 +31,9 @@ public class BookCheckOutDAOImplTest {
 
     private static final List<Book> BOOKS = new ArrayList<>(Arrays.asList(
             new Book("To Kill a Mockingbird", "Harper Lee"),
-            new Book("1984", "George Orwell")));
+            new Book("1984", "George Orwell"),
+            new Book("Pride and Prejudice ", "Jane Austen"),
+            new Book("Gone with the Wind ", "Margaret Mitchell")));
 
     private static final Book EMPTY_BOOK = new Book("", "");
 
@@ -46,7 +49,7 @@ public class BookCheckOutDAOImplTest {
         bookCheckoutDAO.save(expected);
 
         //when
-        Book actual = bookCheckoutDAO.checkOut(expected.getName());
+        Book actual = bookCheckoutDAO.getBookByName(expected.getName());
 
         //then
         assertEquals(expected.getName(), actual.getName());
@@ -62,10 +65,40 @@ public class BookCheckOutDAOImplTest {
         bookCheckoutDAO.save(expected);
 
         //when
-        Book actual = bookCheckoutDAO.checkOut(BOOKS.get(0).getName());
+        Book actual = bookCheckoutDAO.getBookByName("Some name");
 
         //then
         assertEquals(EMPTY_BOOK.getName(), actual.getName());
         assertEquals(EMPTY_BOOK.getAuthorName(), actual.getAuthorName());
+    }
+
+    @Test
+    @Rollback(true)
+    @Transactional
+    public void shouldReturnBookByIdWhenBookWithThatIdExists() {
+        //given
+        Book expected = BOOKS.get(2);
+        bookCheckoutDAO.save(expected);
+
+        //when
+        Book actual = bookCheckoutDAO.getBookByID(BOOKS.get(2).getId());
+
+        //then
+        assertEquals(expected.getId(), actual.getId());
+    }
+
+    @Test
+    @Rollback(true)
+    @Transactional
+    public void shouldReturnEmptyBookWhenBookWithInputIdDoesNotExist() {
+        //given
+        Book expected = BOOKS.get(3);
+        bookCheckoutDAO.save(expected);
+
+        //when
+        Book actual = bookCheckoutDAO.getBookByID(5);
+
+        //then
+        assertEquals(EMPTY_BOOK, actual);
     }
 }
