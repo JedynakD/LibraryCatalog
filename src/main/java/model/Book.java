@@ -6,18 +6,21 @@ import javax.persistence.*;
  * Created by Damian on 2016-08-09.
  */
 @Entity
-@Table(name="book")
+@Table(name = "book")
 public class Book {
     @Id
     @GeneratedValue
-    @Column(name="id")
+    @Column(name = "id")
     private Long id;
 
-    @Column(name="name")
+    @Column(name = "name")
     private String name = "";
 
-    @Column(name="authorName")
+    @Column(name = "authorName")
     private String authorName = "";
+
+    @Column(name = "isCheckedOut")
+    private boolean isCheckedOut = false;
 
     public Book(String name, String authorName) {
         this.name = name;
@@ -51,6 +54,14 @@ public class Book {
         this.authorName = authorName;
     }
 
+    public boolean isCheckedOut() {
+        return isCheckedOut;
+    }
+
+    public void setCheckedOut(boolean checkedOut) {
+        isCheckedOut = checkedOut;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -58,6 +69,7 @@ public class Book {
 
         Book book = (Book) o;
 
+        if (isCheckedOut != book.isCheckedOut) return false;
         if (id != null ? !id.equals(book.id) : book.id != null) return false;
         if (name != null ? !name.equals(book.name) : book.name != null) return false;
         return authorName != null ? authorName.equals(book.authorName) : book.authorName == null;
@@ -69,6 +81,7 @@ public class Book {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (authorName != null ? authorName.hashCode() : 0);
+        result = 31 * result + (isCheckedOut ? 1 : 0);
         return result;
     }
 
@@ -78,6 +91,7 @@ public class Book {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", authorName='" + authorName + '\'' +
+                ", isCheckedOut=" + isCheckedOut +
                 '}';
     }
 }
