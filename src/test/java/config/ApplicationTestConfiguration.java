@@ -2,6 +2,8 @@ package config;
 
 import dao.BookDAO;
 import dao.BookDAOImpl;
+import dao.UserDAO;
+import dao.UserDAOImpl;
 import org.apache.tomcat.dbcp.dbcp.BasicDataSource;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,11 @@ public class ApplicationTestConfiguration {
     @Bean
     public BookDAO getBookDAO() {
         return new BookDAOImpl();
+    }
+
+    @Bean
+    public UserDAO getUserDAO() {
+        return new UserDAOImpl();
     }
 
     @Bean

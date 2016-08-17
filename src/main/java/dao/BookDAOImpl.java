@@ -41,6 +41,7 @@ public class BookDAOImpl implements BookDAO {
         session.persist(book);
     }
 
+    @Transactional
     @Override
     public Book getBookByID(long id) {
         Session session = sessionFactory.getCurrentSession();
@@ -48,15 +49,17 @@ public class BookDAOImpl implements BookDAO {
         if (book == null) {
             return new Book("", "");
         }
-        return (Book) session.get(Book.class, id);
+        return book;
     }
 
+    @Transactional
     @Override
     public void update(Book book) {
         Session session = sessionFactory.getCurrentSession();
         session.update(book);
     }
 
+    @Transactional
     @Override
     public void delete(Book book) {
         Session session = sessionFactory.getCurrentSession();
