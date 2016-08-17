@@ -1,6 +1,7 @@
 package model;
 
 import javax.persistence.*;
+import java.util.*;
 
 /**
  * Created by Damian on 2016-08-16.
@@ -11,10 +12,13 @@ public class User {
     @Id
     @GeneratedValue
     @Column(name = "userId")
-    private Long Id;
+    private Long userId;
 
-    @Column
+    @Column(name = "name")
     private String name;
+
+    @OneToMany(mappedBy = "user", targetEntity = Book.class)
+    private Set<Book> books = new HashSet<Book>();
 
     public User(String name) {
         this.name = name;
@@ -23,12 +27,12 @@ public class User {
     public User() {
     }
 
-    public Long getId() {
-        return Id;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setId(Long id) {
-        Id = id;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getName() {
@@ -39,6 +43,14 @@ public class User {
         this.name = name;
     }
 
+    public Set<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(Set<Book> books) {
+        this.books = books;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -46,23 +58,26 @@ public class User {
 
         User user = (User) o;
 
-        if (Id != null ? !Id.equals(user.Id) : user.Id != null) return false;
-        return name != null ? name.equals(user.name) : user.name == null;
+        if (userId != null ? !userId.equals(user.userId) : user.userId != null) return false;
+        if (name != null ? !name.equals(user.name) : user.name != null) return false;
+        return books != null ? books.equals(user.books) : user.books == null;
 
     }
 
     @Override
     public int hashCode() {
-        int result = Id != null ? Id.hashCode() : 0;
+        int result = userId != null ? userId.hashCode() : 0;
         result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (books != null ? books.hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "Id=" + Id +
+                "userId=" + userId +
                 ", name='" + name + '\'' +
+                ", books=" + books +
                 '}';
     }
 }

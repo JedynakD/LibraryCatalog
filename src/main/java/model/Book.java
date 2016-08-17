@@ -10,8 +10,8 @@ import javax.persistence.*;
 public class Book {
     @Id
     @GeneratedValue
-    @Column(name = "id")
-    private Long id;
+    @Column(name = "isbn")
+    private Long isbn;
 
     @Column(name = "name")
     private String name = "";
@@ -21,6 +21,10 @@ public class Book {
 
     @Column(name = "isCheckedOut")
     private boolean isCheckedOut = false;
+
+    @ManyToOne
+    @JoinColumn(name = "userId")
+    private User user;
 
     public Book(String name, String authorName) {
         this.name = name;
@@ -38,12 +42,12 @@ public class Book {
         return authorName;
     }
 
-    public Long getId() {
-        return id;
+    public Long getIsbn() {
+        return isbn;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIsbn(Long isbn) {
+        this.isbn = isbn;
     }
 
     public void setName(String name) {
@@ -62,6 +66,14 @@ public class Book {
         isCheckedOut = checkedOut;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -70,28 +82,31 @@ public class Book {
         Book book = (Book) o;
 
         if (isCheckedOut != book.isCheckedOut) return false;
-        if (id != null ? !id.equals(book.id) : book.id != null) return false;
+        if (isbn != null ? !isbn.equals(book.isbn) : book.isbn != null) return false;
         if (name != null ? !name.equals(book.name) : book.name != null) return false;
-        return authorName != null ? authorName.equals(book.authorName) : book.authorName == null;
+        if (authorName != null ? !authorName.equals(book.authorName) : book.authorName != null) return false;
+        return user != null ? user.equals(book.user) : book.user == null;
 
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
+        int result = isbn != null ? isbn.hashCode() : 0;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (authorName != null ? authorName.hashCode() : 0);
         result = 31 * result + (isCheckedOut ? 1 : 0);
+        result = 31 * result + (user != null ? user.hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
         return "Book{" +
-                "id=" + id +
+                "isbn=" + isbn +
                 ", name='" + name + '\'' +
                 ", authorName='" + authorName + '\'' +
                 ", isCheckedOut=" + isCheckedOut +
+                ", user=" + user +
                 '}';
     }
 }

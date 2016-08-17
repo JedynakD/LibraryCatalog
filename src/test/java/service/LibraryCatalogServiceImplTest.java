@@ -12,6 +12,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
+import static junit.framework.TestCase.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -50,5 +51,17 @@ public class LibraryCatalogServiceImplTest {
 
         //then
         assertTrue(book.isCheckedOut());
+    }
+
+    @Test
+    public void shouldReturnFalseWhenBookIsReturned() {
+        //given
+        Book book = new Book();
+
+        //when
+        libraryCatalogService.returnBook(book);
+
+        //then
+        assertFalse(book.isCheckedOut());
     }
 }

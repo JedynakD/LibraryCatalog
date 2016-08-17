@@ -18,4 +18,10 @@ public class LibraryCatalogServiceImpl implements LibraryCatalogService {
         bookDAO.update(book);
         return book;
     }
+
+    @Override
+    public void returnBook(Book book) {
+        book.setCheckedOut(false);
+        bookDAO.update(book);
+    }
 }

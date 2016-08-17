@@ -83,10 +83,10 @@ public class BookDAOImplTest {
         bookDAO.save(expected);
 
         //when
-        Book actual = bookDAO.getBookByID(BOOKS.get(2).getId());
+        Book actual = bookDAO.getBookByID(BOOKS.get(2).getIsbn());
 
         //then
-        assertEquals(expected.getId(), actual.getId());
+        assertEquals(expected.getIsbn(), actual.getIsbn());
     }
 
     @Test
