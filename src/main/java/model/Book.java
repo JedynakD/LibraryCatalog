@@ -11,7 +11,7 @@ public class Book {
     @Id
     @GeneratedValue
     @Column(name = "isbn")
-    private Long isbn;
+    private long isbn;
 
     @Column(name = "name")
     private String name = "";
@@ -21,6 +21,9 @@ public class Book {
 
     @Column(name = "isCheckedOut")
     private boolean isCheckedOut = false;
+
+    @Column(name = "checkOutTime")
+    private long checkOutTime;
 
     @ManyToOne
     @JoinColumn(name = "userId")
@@ -74,6 +77,14 @@ public class Book {
         this.user = user;
     }
 
+    public long getCheckOutTime() {
+        return checkOutTime;
+    }
+
+    public void setCheckOutTime(long checkOutTime) {
+        this.checkOutTime = checkOutTime;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -81,8 +92,9 @@ public class Book {
 
         Book book = (Book) o;
 
+        if (isbn != book.isbn) return false;
         if (isCheckedOut != book.isCheckedOut) return false;
-        if (isbn != null ? !isbn.equals(book.isbn) : book.isbn != null) return false;
+        if (checkOutTime != book.checkOutTime) return false;
         if (name != null ? !name.equals(book.name) : book.name != null) return false;
         if (authorName != null ? !authorName.equals(book.authorName) : book.authorName != null) return false;
         return user != null ? user.equals(book.user) : book.user == null;
@@ -91,10 +103,11 @@ public class Book {
 
     @Override
     public int hashCode() {
-        int result = isbn != null ? isbn.hashCode() : 0;
+        int result = (int) (isbn ^ (isbn >>> 32));
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (authorName != null ? authorName.hashCode() : 0);
         result = 31 * result + (isCheckedOut ? 1 : 0);
+        result = 31 * result + (int) (checkOutTime ^ (checkOutTime >>> 32));
         result = 31 * result + (user != null ? user.hashCode() : 0);
         return result;
     }
@@ -106,6 +119,7 @@ public class Book {
                 ", name='" + name + '\'' +
                 ", authorName='" + authorName + '\'' +
                 ", isCheckedOut=" + isCheckedOut +
+                ", checkOutTime=" + checkOutTime +
                 ", user=" + user +
                 '}';
     }
