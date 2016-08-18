@@ -5,13 +5,20 @@ import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.Days;
 
-import java.util.Date;
 import java.util.Set;
 
 /**
  * Created by Damian on 2016-08-18.
  */
 public class ReportGenerator {
+    private static final int DAYS_LOAN_PERIOD_BEFORE_OVERDUE = 5;
+    private static final long BOOK_RETURNED = 0L;
+
+    private static int daysLeft;
+
+
+    private ReportGenerator() {
+    }
 
     public static String generateReport(Set<Book> books) {
         StringBuilder builder = new StringBuilder();
@@ -20,21 +27,37 @@ public class ReportGenerator {
                     .append(", ")
                     .append(book.getAuthorName())
                     .append(" is ")
-                    .append(calculateOverdueDays(book))
-                    .append(" days overdue.");
+                    .append(Math.abs(calculateOverdueDays(book)))
+                    .append(" days overdue.")
+                    .append(" Days left: ")
+                    .append(returnDaysLeftBeforeOverdue())
+                    .append("\n");
         }
         return builder.toString();
     }
 
     private static int calculateOverdueDays(Book book) {
         long checkOutDateInMillis = book.getCheckOutTime();
-        if (checkOutDateInMillis == 0L) {
+        DateTime checkOutDate = new DateTime(checkOutDateInMillis);
+        Days days = Days.daysBetween(checkOutDate, returnTodayTime());
+        int daysLeft = returnDaysLeft(days);
+        if (checkOutDateInMillis == BOOK_RETURNED || daysLeft >= 0) {
             return 0;
         } else {
-            DateTime checkOutDate = new DateTime(checkOutDateInMillis);
-            Days days = Days.daysBetween(returnTodayTime(),checkOutDate);
-            return days.getDays();
+            return daysLeft;
         }
+    }
+
+    private static int returnDaysLeftBeforeOverdue() {
+        if (daysLeft < 0) {
+            return 0;
+        }
+        return daysLeft;
+    }
+
+    private static int returnDaysLeft(Days days) {
+        daysLeft = DAYS_LOAN_PERIOD_BEFORE_OVERDUE - days.getDays();
+        return daysLeft;
     }
 
     private static DateTime returnTodayTime() {
