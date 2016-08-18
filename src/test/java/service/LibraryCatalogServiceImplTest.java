@@ -12,7 +12,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
+import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -63,5 +65,29 @@ public class LibraryCatalogServiceImplTest {
 
         //then
         assertFalse(book.isCheckedOut());
+    }
+
+    @Test
+    public void shouldReturnBookWithZeroCheckoutDateWhenBookIsReturned() {
+        //given
+        Book book = new Book();
+
+        //when
+        libraryCatalogService.returnBook(book);
+
+        //then
+        assertEquals(0l, book.getCheckOutDate());
+    }
+
+    @Test
+    public void shouldReturnBookWithDifferentThenZeroCheckoutDateWhenBookIsCheckedOut() {
+        //given
+        Mockito.when(bookTestDAO.getBookByName("Some book")).thenReturn(new Book());
+
+        //when
+        Book book = libraryCatalogService.checkOut("Some book");
+
+        //then
+        assertNotEquals(0l, book.getCheckOutDate());
     }
 }
