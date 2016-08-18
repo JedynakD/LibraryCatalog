@@ -24,6 +24,8 @@ import static org.junit.Assert.assertTrue;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class LibraryCatalogServiceImplTest {
 
+    private static final long DEFAULT_DATE = 0L;
+
     @Configuration
     static class LibraryCatalogServiceContextConfiguration {
         @Bean
@@ -76,7 +78,7 @@ public class LibraryCatalogServiceImplTest {
         libraryCatalogService.returnBook(book);
 
         //then
-        assertEquals(0l, book.getCheckOutDate());
+        assertEquals(DEFAULT_DATE, book.getCheckOutDate());
     }
 
     @Test
@@ -88,6 +90,6 @@ public class LibraryCatalogServiceImplTest {
         Book book = libraryCatalogService.checkOut("Some book");
 
         //then
-        assertNotEquals(0l, book.getCheckOutDate());
+        assertNotEquals(DEFAULT_DATE, book.getCheckOutDate());
     }
 }
