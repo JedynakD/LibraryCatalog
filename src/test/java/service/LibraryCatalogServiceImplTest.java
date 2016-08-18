@@ -68,7 +68,7 @@ public class LibraryCatalogServiceImplTest {
         libraryCatalogService.returnBook(book);
 
         //then
-        assertEquals(DEFAULT_DATE, book.getCheckOutDate());
+        assertEquals(DEFAULT_DATE, book.getCheckOutTime());
     }
 
     @Test
@@ -80,7 +80,7 @@ public class LibraryCatalogServiceImplTest {
         Book book = libraryCatalogService.checkOut(BOOK_NAME_EXAMPLE);
 
         //then
-        assertNotEquals(DEFAULT_DATE, book.getCheckOutDate());
+        assertNotEquals(DEFAULT_DATE, book.getCheckOutTime());
     }
 
     @Configuration
@@ -95,6 +95,5 @@ public class LibraryCatalogServiceImplTest {
         public BookDAO bookTestDAO() {
             return Mockito.mock(BookDAO.class);
         }
-
     }
 }
