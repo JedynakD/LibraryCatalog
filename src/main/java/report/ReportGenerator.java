@@ -11,7 +11,7 @@ import java.util.Set;
  * Created by Damian on 2016-08-18.
  */
 public class ReportGenerator {
-    private static final int DAYS_LOAN_PERIOD_BEFORE_OVERDUE = 5;
+    private static final int MAX_LOAN_PERIOD_IN_DAYS = 5;
     private static final long BOOK_RETURNED = 0L;
 
     private static int daysLeft;
@@ -56,7 +56,7 @@ public class ReportGenerator {
     }
 
     private static int returnDaysLeft(Days days) {
-        daysLeft = DAYS_LOAN_PERIOD_BEFORE_OVERDUE - days.getDays();
+        daysLeft = MAX_LOAN_PERIOD_IN_DAYS - days.getDays();
         return daysLeft;
     }
 
