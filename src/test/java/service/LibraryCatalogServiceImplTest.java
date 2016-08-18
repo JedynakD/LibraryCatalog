@@ -2,6 +2,7 @@ package service;
 
 import dao.BookDAO;
 import model.Book;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -25,18 +26,13 @@ import static org.junit.Assert.assertTrue;
 public class LibraryCatalogServiceImplTest {
 
     private static final long DEFAULT_DATE = 0L;
+    private static final String BOOK_NAME_EXAMPLE = "Some book";
 
-    @Configuration
-    static class LibraryCatalogServiceContextConfiguration {
-        @Bean
-        public LibraryCatalogService bookCheckOutService() {
-            return new LibraryCatalogServiceImpl();
-        }
+    private Book book;
 
-        @Bean
-        public BookDAO bookTestDAO() {
-            return Mockito.mock(BookDAO.class);
-        }
+    @Before
+    public void setUp() {
+        book = new Book();
     }
 
     @Autowired
@@ -48,10 +44,10 @@ public class LibraryCatalogServiceImplTest {
     @Test
     public void shouldReturnTrueWhenBookIsCheckedOut() {
         //given
-        Mockito.when(bookTestDAO.getBookByName("Some book")).thenReturn(new Book());
+        Mockito.when(bookTestDAO.getBookByName(BOOK_NAME_EXAMPLE)).thenReturn(book);
 
         //when
-        Book book = libraryCatalogService.checkOut("Some book");
+        book = libraryCatalogService.checkOut(BOOK_NAME_EXAMPLE);
 
         //then
         assertTrue(book.isCheckedOut());
@@ -59,9 +55,6 @@ public class LibraryCatalogServiceImplTest {
 
     @Test
     public void shouldReturnFalseWhenBookIsReturned() {
-        //given
-        Book book = new Book();
-
         //when
         libraryCatalogService.returnBook(book);
 
@@ -71,9 +64,6 @@ public class LibraryCatalogServiceImplTest {
 
     @Test
     public void shouldReturnBookWithZeroCheckoutDateWhenBookIsReturned() {
-        //given
-        Book book = new Book();
-
         //when
         libraryCatalogService.returnBook(book);
 
@@ -84,12 +74,27 @@ public class LibraryCatalogServiceImplTest {
     @Test
     public void shouldReturnBookWithDifferentThenZeroCheckoutDateWhenBookIsCheckedOut() {
         //given
-        Mockito.when(bookTestDAO.getBookByName("Some book")).thenReturn(new Book());
+        Mockito.when(bookTestDAO.getBookByName(BOOK_NAME_EXAMPLE)).thenReturn(book);
 
         //when
-        Book book = libraryCatalogService.checkOut("Some book");
+        Book book = libraryCatalogService.checkOut(BOOK_NAME_EXAMPLE);
 
         //then
         assertNotEquals(DEFAULT_DATE, book.getCheckOutDate());
+    }
+
+    @Configuration
+    static class LibraryCatalogServiceContextConfiguration {
+
+        @Bean
+        public LibraryCatalogService bookCheckOutService() {
+            return new LibraryCatalogServiceImpl();
+        }
+
+        @Bean
+        public BookDAO bookTestDAO() {
+            return Mockito.mock(BookDAO.class);
+        }
+
     }
 }
