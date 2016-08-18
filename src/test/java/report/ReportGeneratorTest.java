@@ -90,7 +90,13 @@ public class ReportGeneratorTest {
     }
 
     private String returnReport(int daysOverdue, int daysLeft) {
-        return REPORT_FIRST_PART + daysOverdue + REPORT_SECOND_PART + daysLeft + "\n";
+        StringBuilder builder = new StringBuilder();
+        builder.append(REPORT_FIRST_PART)
+                .append(daysOverdue)
+                .append(REPORT_SECOND_PART)
+                .append(daysLeft)
+                .append("\n");
+        return builder.toString();
     }
 
     private DateTime returnTodayTime() {
