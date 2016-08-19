@@ -13,13 +13,10 @@ import java.util.Set;
 public class OverdueCalculator {
     private static final long BOOK_RETURNED = 0L;
 
-    private static OverdueCalculator defaultCalculator = new OverdueCalculator();
+    private static OverdueCalculator defaultCalculator = new OverdueCalculator(5, 10);
 
-    private int maxLoanPeriodInDays = 5;
-    private int oneDayOverdueFee = 10;
-
-    private OverdueCalculator() {
-    }
+    private int maxLoanPeriodInDays;
+    private int oneDayOverdueFee;
 
     private OverdueCalculator(int maxLoanPeriodInDays, int oneDayOverdueFee) {
         this.maxLoanPeriodInDays = maxLoanPeriodInDays;
