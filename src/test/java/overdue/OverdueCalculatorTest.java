@@ -63,6 +63,26 @@ public class OverdueCalculatorTest {
         assertEquals(new Overdue(0, 10), actual);
     }
 
+    @Test
+    public void shouldReturnFeeZeroWhenBookIsNotOverdue() {
+        long yesterday = returnTodayTime().minusDays(1).getMillis();
+        Mockito.when(book.getCheckOutTime()).thenReturn(yesterday);
+
+        int actual = overdueCalculator.calculateFeeForOne(book);
+
+        assertEquals(0, actual);
+    }
+
+    @Test
+    public void shouldReturnFeeTenWhenBookIsOneDayOverdue() {
+        long sixDaysAgo = returnTodayTime().minusDays(6).getMillis();
+        Mockito.when(book.getCheckOutTime()).thenReturn(sixDaysAgo);
+
+        int actual = overdueCalculator.calculateFeeForOne(book);
+
+        assertEquals(10, actual);
+    }
+
     private DateTime returnTodayTime() {
         return new DateTime(DateTimeZone.UTC);
     }

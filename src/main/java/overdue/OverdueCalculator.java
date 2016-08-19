@@ -80,6 +80,6 @@ public class OverdueCalculator {
     }
 
     public int calculateFeeForOne(Book book) {
-        return returnDaysSinceCheckOut(book) * oneDayOverdueFee;
+        return returnDaysOverdue(returnDaysSinceCheckOut(book)) * oneDayOverdueFee;
     }
 }
