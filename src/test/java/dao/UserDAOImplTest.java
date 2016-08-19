@@ -1,6 +1,5 @@
 package dao;
 
-import config.ApplicationConfiguration;
 import config.ApplicationTestConfiguration;
 import model.Book;
 import model.User;
@@ -19,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Arrays;
 import java.util.HashSet;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by Damian on 2016-08-17.
@@ -28,8 +27,8 @@ import static org.junit.Assert.*;
 @RunWith(SpringJUnit4ClassRunner.class)
 @EnableTransactionManagement
 public class UserDAOImplTest {
-
     public static final String EXAMPLE_USER_NAME = "Example name";
+
     @Autowired
     private UserDAO userDAO;
 
