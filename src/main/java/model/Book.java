@@ -10,19 +10,19 @@ import javax.persistence.*;
 public class Book {
     @Id
     @GeneratedValue
-    @Column(name = "isbn")
+    @Column(name = "isbn", nullable = false)
     private long isbn;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name = "";
 
-    @Column(name = "authorName")
+    @Column(name = "authorName", nullable = false)
     private String authorName = "";
 
-    @Column(name = "isCheckedOut")
+    @Column(name = "isCheckedOut", nullable = false)
     private boolean isCheckedOut = false;
 
-    @Column(name = "checkOutTime")
+    @Column(name = "checkOutTime", nullable = false)
     private long checkOutTime;
 
     @ManyToOne

@@ -1,31 +1,29 @@
 package dao;
 
-import model.Book;
 import model.User;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
  * Created by Damian on 2016-08-17.
  */
+@Repository
 public class UserDAOImpl implements UserDAO {
     @Autowired
     private SessionFactory sessionFactory;
 
-    @Transactional
     @Override
     public void save(User user) {
         Session session = sessionFactory.getCurrentSession();
         session.save(user);
     }
 
-    @Transactional
     @Override
     public User getUserById(long id) {
         Session session = sessionFactory.getCurrentSession();
@@ -36,7 +34,6 @@ public class UserDAOImpl implements UserDAO {
         return user;
     }
 
-    @Transactional
     @Override
     public User getUserByName(String userName) {
         Session session = sessionFactory.getCurrentSession();

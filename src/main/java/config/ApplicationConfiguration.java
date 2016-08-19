@@ -1,18 +1,13 @@
 package config;
 
-import dao.BookDAO;
-import dao.BookDAOImpl;
-import dao.UserDAO;
-import dao.UserDAOImpl;
 import org.apache.tomcat.dbcp.dbcp.BasicDataSource;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
-import service.LibraryCatalogService;
-import service.LibraryCatalogServiceImpl;
 
 import javax.sql.DataSource;
 import java.util.Properties;
@@ -21,22 +16,8 @@ import java.util.Properties;
  * Created by Damian on 2016-08-10.
  */
 @Configuration
+@ComponentScan(basePackages = {"dao", "service"})
 public class ApplicationConfiguration {
-    @Bean
-    public BookDAO getBookCheckoutDAO() {
-        return new BookDAOImpl();
-    }
-
-    @Bean
-    public UserDAO getUserDAO() {
-        return new UserDAOImpl();
-    }
-
-    @Bean
-    public LibraryCatalogService getBookCheckOutService() {
-        return new LibraryCatalogServiceImpl();
-    }
-
     @Bean
     public LocalSessionFactoryBean getSessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
