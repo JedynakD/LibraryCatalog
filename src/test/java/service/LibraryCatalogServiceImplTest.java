@@ -36,10 +36,10 @@ public class LibraryCatalogServiceImplTest {
     }
 
     @Autowired
-    private LibraryCatalogService libraryCatalogService;
+    private BookDAO bookTestDAO;
 
     @Autowired
-    private BookDAO bookTestDAO;
+    private LibraryCatalogService libraryCatalogService;
 
     @Test
     public void shouldReturnTrueWhenBookIsCheckedOut() {

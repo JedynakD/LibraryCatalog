@@ -6,13 +6,14 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
  * Created by Damian on 2016-08-10.
  */
-
+@Repository
 public class BookDAOImpl implements BookDAO {
     @Autowired
     SessionFactory sessionFactory;

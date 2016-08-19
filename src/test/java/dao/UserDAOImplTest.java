@@ -1,5 +1,6 @@
 package dao;
 
+import config.ApplicationConfiguration;
 import config.ApplicationTestConfiguration;
 import model.Book;
 import model.User;

@@ -5,11 +5,13 @@ import model.Book;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by Damian on 2016-08-16.
  */
+@Service
 public class LibraryCatalogServiceImpl implements LibraryCatalogService {
     @Autowired
     private BookDAO bookDAO;
