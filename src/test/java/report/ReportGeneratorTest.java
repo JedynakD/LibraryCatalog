@@ -1,12 +1,11 @@
 package report;
 
+import overdue.Overdue;
 import model.Book;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 
@@ -27,11 +26,10 @@ public class ReportGeneratorTest {
     @Test
     public void shouldReturnReportWithZeroDaysOverdueWhenBookCheckedOutToday() {
         //given
-        String expected = returnReport(0, 5);
-        book.setCheckOutTime(returnTodayTime().getMillis());
+        String expected = returnReport(5, 0);
 
         //when
-        String actual = ReportGenerator.generateReport(new HashSet<Book>((Arrays.asList(book))));
+        String actual = ReportGenerator.generateReport(book, new Overdue(5, 0));
 
         //then
         assertEquals(expected, actual);
@@ -40,11 +38,10 @@ public class ReportGeneratorTest {
     @Test
     public void shouldReturnReportWithZeroDayOverdueWhenBookCheckedOutTwoDaysAgo() {
         //given
-        String expected = returnReport(0, 4);
-        book.setCheckOutTime(returnTodayTime().minusDays(1).getMillis());
+        String expected = returnReport(4, 0);
 
         //when
-        String actual = ReportGenerator.generateReport(new HashSet<Book>((Arrays.asList(book))));
+        String actual = ReportGenerator.generateReport(book, new Overdue(4, 0));
 
         //then
         assertEquals(expected, actual);
@@ -54,10 +51,9 @@ public class ReportGeneratorTest {
     public void shouldReturnReportWithZeroDayOverdueWhenBookCheckedFiveDaysAgo() {
         //given
         String expected = returnReport(0, 0);
-        book.setCheckOutTime(returnTodayTime().minusDays(5).getMillis());
 
         //when
-        String actual = ReportGenerator.generateReport(new HashSet<Book>((Arrays.asList(book))));
+        String actual = ReportGenerator.generateReport(book, new Overdue(0, 0));
 
         //then
         assertEquals(expected, actual);
@@ -66,11 +62,10 @@ public class ReportGeneratorTest {
     @Test
     public void shouldReturnReportWithOneDayOverdueWhenBookCheckedSixDaysAgo() {
         //given
-        String expected = returnReport(1, 0);
-        book.setCheckOutTime(returnTodayTime().minusDays(6).getMillis());
+        String expected = returnReport(0, 1);
 
         //when
-        String actual = ReportGenerator.generateReport(new HashSet<Book>((Arrays.asList(book))));
+        String actual = ReportGenerator.generateReport(book, new Overdue(0, 1));
 
         //then
         assertEquals(expected, actual);
@@ -79,17 +74,16 @@ public class ReportGeneratorTest {
     @Test
     public void shouldReturnReportWithTenDaysOverdueWhenBookCheckedFifteenDaysAgo() {
         //given
-        String expected = returnReport(10, 0);
-        book.setCheckOutTime(returnTodayTime().minusDays(15).getMillis());
+        String expected = returnReport(0, 10);
 
         //when
-        String actual = ReportGenerator.generateReport(new HashSet<Book>((Arrays.asList(book))));
+        String actual = ReportGenerator.generateReport(book, new Overdue(0, 10));
 
         //then
         assertEquals(expected, actual);
     }
 
-    private String returnReport(int daysOverdue, int daysLeft) {
+    private String returnReport(int daysLeft, int daysOverdue) {
         StringBuilder builder = new StringBuilder();
         builder.append(REPORT_FIRST_PART)
                 .append(daysOverdue)
