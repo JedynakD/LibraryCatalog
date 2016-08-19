@@ -58,8 +58,7 @@ public class OverdueCalculator {
     }
 
     private int returnDaysSinceCheckOut(Book book) {
-        long checkOutTimeInMillis = book.getCheckOutTime();
-        DateTime checkOutTime = new DateTime(checkOutTimeInMillis);
+        DateTime checkOutTime = new DateTime(book.getCheckOutTime());
         Days days = Days.daysBetween(checkOutTime, returnTodayTime());
         return days.getDays();
     }
