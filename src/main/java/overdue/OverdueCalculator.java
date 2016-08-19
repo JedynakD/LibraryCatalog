@@ -36,24 +36,24 @@ public class OverdueCalculator {
             return new Overdue(maxLoanPeriodInDays, 0);
         }
         int daysSinceCheckOut = returnDaysSinceCheckOut(book);
-        return new Overdue(returnDaysLeftBeforeOverdue(daysSinceCheckOut), returnDaysOverdue(daysSinceCheckOut));
+        return new Overdue(calculateDaysLeftBeforeOverdue(daysSinceCheckOut), calculateDaysOverdue(daysSinceCheckOut));
     }
 
-    private int returnDaysOverdue(int daysSinceCheckOut) {
+    private int calculateDaysOverdue(int daysSinceCheckOut) {
         int daysOverdue = daysSinceCheckOut - maxLoanPeriodInDays;
         return returnDays(daysOverdue);
     }
 
-    private int returnDaysLeftBeforeOverdue(int daysSinceCheckOut) {
+    private int calculateDaysLeftBeforeOverdue(int daysSinceCheckOut) {
         int daysLeftBeforeOverdue = maxLoanPeriodInDays - daysSinceCheckOut;
         return returnDays(daysLeftBeforeOverdue);
     }
 
-    private int returnDays(int daysOverdue) {
-        if (daysOverdue <= 0) {
+    private int returnDays(int days) {
+        if (days <= 0) {
             return 0;
         } else {
-            return daysOverdue;
+            return days;
         }
     }
 
@@ -77,6 +77,6 @@ public class OverdueCalculator {
     }
 
     public int calculateFeeForOne(Book book) {
-        return returnDaysOverdue(returnDaysSinceCheckOut(book)) * oneDayOverdueFee;
+        return calculateDaysOverdue(returnDaysSinceCheckOut(book)) * oneDayOverdueFee;
     }
 }
