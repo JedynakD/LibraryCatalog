@@ -67,15 +67,15 @@ public class OverdueCalculator {
         return new DateTime(DateTimeZone.UTC);
     }
 
+    public int calculateFeeForOne(Book book) {
+        return calculateDaysOverdue(returnDaysSinceCheckOut(book)) * oneDayOverdueFee;
+    }
+
     public int calculateFeeForAll(Set<Book> books) {
         int overdueFee = 0;
         for (Book book : books) {
             overdueFee = overdueFee + calculateFeeForOne(book);
         }
         return overdueFee;
-    }
-
-    public int calculateFeeForOne(Book book) {
-        return calculateDaysOverdue(returnDaysSinceCheckOut(book)) * oneDayOverdueFee;
     }
 }
