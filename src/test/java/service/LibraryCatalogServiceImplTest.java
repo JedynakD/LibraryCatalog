@@ -24,7 +24,6 @@ import static org.junit.Assert.assertTrue;
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class)
 @RunWith(SpringJUnit4ClassRunner.class)
 public class LibraryCatalogServiceImplTest {
-
     private static final long DEFAULT_DATE = 0L;
     private static final String BOOK_NAME_EXAMPLE = "Some book";
 
