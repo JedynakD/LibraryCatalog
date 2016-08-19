@@ -50,11 +50,7 @@ public class OverdueCalculator {
     }
 
     private int returnDays(int days) {
-        if (days <= 0) {
-            return 0;
-        } else {
-            return days;
-        }
+        return days <= 0 ? 0 : days;
     }
 
     private int returnDaysSinceCheckOut(Book book) {
