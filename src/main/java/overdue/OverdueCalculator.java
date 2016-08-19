@@ -44,19 +44,19 @@ public class OverdueCalculator {
 
     private int returnDaysOverdue(int daysSinceCheckOut) {
         int daysOverdue = daysSinceCheckOut - maxLoanPeriodInDays;
-        if (daysOverdue <= 0) {
-            return 0;
-        } else {
-            return daysOverdue;
-        }
+        return returnDays(daysOverdue);
     }
 
     private int returnDaysLeftBeforeOverdue(int daysSinceCheckOut) {
         int daysLeftBeforeOverdue = maxLoanPeriodInDays - daysSinceCheckOut;
-        if (daysLeftBeforeOverdue <= 0) {
+        return returnDays(daysLeftBeforeOverdue);
+    }
+
+    private int returnDays(int daysOverdue) {
+        if (daysOverdue <= 0) {
             return 0;
         } else {
-            return daysLeftBeforeOverdue;
+            return daysOverdue;
         }
     }
 
