@@ -6,7 +6,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,7 +17,6 @@ public class BookDAOImpl implements BookDAO {
     @Autowired
     SessionFactory sessionFactory;
 
-    @Transactional
     @Override
     public Book getBookByName(String bookName) {
         Session session = sessionFactory.getCurrentSession();
@@ -34,14 +32,12 @@ public class BookDAOImpl implements BookDAO {
         return new Book("", "");
     }
 
-    @Transactional
     @Override
     public void save(Book book) {
         Session session = sessionFactory.getCurrentSession();
         session.persist(book);
     }
 
-    @Transactional
     @Override
     public Book getBookByID(long id) {
         Session session = sessionFactory.getCurrentSession();
@@ -52,14 +48,12 @@ public class BookDAOImpl implements BookDAO {
         return book;
     }
 
-    @Transactional
     @Override
     public void update(Book book) {
         Session session = sessionFactory.getCurrentSession();
         session.update(book);
     }
 
-    @Transactional
     @Override
     public void delete(Book book) {
         Session session = sessionFactory.getCurrentSession();
