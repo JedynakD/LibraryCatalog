@@ -19,7 +19,7 @@ public class ReportGenerator {
                     .append(Math.abs(overdue.getDaysOverdue()))
                     .append(" days overdue.")
                     .append(" Days left: ")
-                    .append(overdue.getDaysLeft())
+                    .append(overdue.getDaysLeftToOverdue())
                     .append("\n");
         return builder.toString();
     }

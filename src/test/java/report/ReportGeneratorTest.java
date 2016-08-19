@@ -92,9 +92,4 @@ public class ReportGeneratorTest {
                 .append("\n");
         return builder.toString();
     }
-
-    private DateTime returnTodayTime() {
-        return new DateTime(DateTimeZone.UTC);
-    }
-
 }
