@@ -11,10 +11,10 @@ import java.util.*;
 public class User {
     @Id
     @GeneratedValue
-    @Column(name = "userId")
+    @Column(name = "userId", nullable = false)
     private Long userId;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 
     @OneToMany(mappedBy = "user", targetEntity = Book.class)
