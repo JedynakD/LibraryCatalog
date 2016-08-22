@@ -8,6 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 import java.util.Properties;
@@ -16,6 +17,7 @@ import java.util.Properties;
  * Created by Damian on 2016-08-10.
  */
 @Configuration
+@EnableTransactionManagement
 @ComponentScan(basePackages = {"dao", "service"})
 public class ApplicationConfiguration {
     @Bean
