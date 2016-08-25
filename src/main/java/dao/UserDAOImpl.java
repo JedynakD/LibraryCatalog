@@ -43,8 +43,7 @@ public class UserDAOImpl implements UserDAO {
         List<User> users = criteria.list();
 
         if (!users.isEmpty()) {
-            User object = users.get(0);
-            return object;
+            return users.get(0);
         }
         return new User();
     }

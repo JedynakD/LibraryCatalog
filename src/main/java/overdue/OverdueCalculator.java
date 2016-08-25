@@ -10,10 +10,12 @@ import java.util.Set;
 /**
  * Created by Damian on 2016-08-19.
  */
-public class OverdueCalculator {
+public final class OverdueCalculator {
     private static final long BOOK_RETURNED = 0L;
+    public static final int DEFAULT_MAX_LOAN_PERIOD_IN_DAYS = 5;
+    public static final int DEFAULT_ONE_DAY_OVERDUE_FEE = 10;
 
-    private static OverdueCalculator defaultCalculator = new OverdueCalculator(5, 10);
+    private static OverdueCalculator defaultCalculator = new OverdueCalculator(DEFAULT_MAX_LOAN_PERIOD_IN_DAYS, DEFAULT_ONE_DAY_OVERDUE_FEE);
 
     private int maxLoanPeriodInDays;
     private int oneDayOverdueFee;

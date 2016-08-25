@@ -1,12 +1,12 @@
 package report;
 
-import overdue.Overdue;
 import model.Book;
+import overdue.Overdue;
 
 /**
  * Created by Damian on 2016-08-18.
  */
-public class ReportGenerator {
+public final class ReportGenerator {
     private ReportGenerator() {
     }
 

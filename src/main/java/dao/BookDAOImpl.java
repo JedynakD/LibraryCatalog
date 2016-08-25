@@ -27,8 +27,7 @@ public class BookDAOImpl implements BookDAO {
         List<Book> books = criteria.list();
 
         if (!books.isEmpty()) {
-            Book object = books.get(0);
-            return object;
+            return books.get(0);
         }
         return new Book("", "");
     }
