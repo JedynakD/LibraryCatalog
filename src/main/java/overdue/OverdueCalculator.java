@@ -17,8 +17,8 @@ public final class OverdueCalculator {
 
     private static OverdueCalculator defaultCalculator = new OverdueCalculator(DEFAULT_MAX_LOAN_PERIOD_IN_DAYS, DEFAULT_ONE_DAY_OVERDUE_FEE);
 
-    private int maxLoanPeriodInDays;
-    private int oneDayOverdueFee;
+    private final int maxLoanPeriodInDays;
+    private final int oneDayOverdueFee;
 
     private OverdueCalculator(int maxLoanPeriodInDays, int oneDayOverdueFee) {
         this.maxLoanPeriodInDays = maxLoanPeriodInDays;
@@ -70,10 +70,6 @@ public final class OverdueCalculator {
     }
 
     public int calculateFeeForAll(Set<Book> books) {
-        int overdueFee = 0;
-        for (Book book : books) {
-            overdueFee = overdueFee + calculateFeeForOne(book);
-        }
-        return overdueFee;
+        return books.stream().mapToInt(book -> calculateFeeForOne(book)).sum();
     }
 }
