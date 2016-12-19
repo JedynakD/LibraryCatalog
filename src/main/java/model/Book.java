@@ -1,6 +1,7 @@
 package model;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 /**
  * Created by Damian on 2016-08-09.
@@ -23,7 +24,7 @@ public class Book {
     private boolean isCheckedOut = false;
 
     @Column(name = "checkOutTime", nullable = false)
-    private long checkOutTime;
+    private LocalDate checkOutTime = LocalDate.MIN;
 
     @ManyToOne
     @JoinColumn(name = "userId")
@@ -77,11 +78,11 @@ public class Book {
         this.user = user;
     }
 
-    public long getCheckOutTime() {
+    public LocalDate getCheckOutTime() {
         return checkOutTime;
     }
 
-    public void setCheckOutTime(long checkOutTime) {
+    public void setCheckOutTime(LocalDate checkOutTime) {
         this.checkOutTime = checkOutTime;
     }
 
@@ -94,11 +95,10 @@ public class Book {
 
         if (isbn != book.isbn) return false;
         if (isCheckedOut != book.isCheckedOut) return false;
-        if (checkOutTime != book.checkOutTime) return false;
         if (name != null ? !name.equals(book.name) : book.name != null) return false;
         if (authorName != null ? !authorName.equals(book.authorName) : book.authorName != null) return false;
+        if (checkOutTime != null ? !checkOutTime.equals(book.checkOutTime) : book.checkOutTime != null) return false;
         return user != null ? user.equals(book.user) : book.user == null;
-
     }
 
     @Override
@@ -107,7 +107,7 @@ public class Book {
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (authorName != null ? authorName.hashCode() : 0);
         result = 31 * result + (isCheckedOut ? 1 : 0);
-        result = 31 * result + (int) (checkOutTime ^ (checkOutTime >>> 32));
+        result = 31 * result + (checkOutTime != null ? checkOutTime.hashCode() : 0);
         result = 31 * result + (user != null ? user.hashCode() : 0);
         return result;
     }

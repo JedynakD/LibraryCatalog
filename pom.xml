@@ -18,7 +18,7 @@
             <dependency>
                 <groupId>io.spring.platform</groupId>
                 <artifactId>platform-bom</artifactId>
-                <version>1.1.2.RELEASE</version>
+                <version>2.0.8.RELEASE</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -47,16 +47,8 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>4.3.11.Final</version>
+            <version>5.2.5.Final</version>
         </dependency>
-
-        <!--ORACLE OJDBC CONNECTOR-->
-        <dependency>
-            <groupId>com.oracle</groupId>
-            <artifactId>ojdbc6</artifactId>
-            <version>11.2.0</version>
-        </dependency>
-
 
         <!--TESTING-->
         <dependency>
@@ -86,22 +78,12 @@
             <version>2.3.1</version>
         </dependency>
 
-
-        <!-- TIME  -->
-        <dependency>
-            <groupId>joda-time</groupId>
-            <artifactId>joda-time</artifactId>
-            <version>2.9.4</version>
-        </dependency>
-
-
         <!--    -->
         <dependency>
             <groupId>org.apache.tomcat</groupId>
             <artifactId>tomcat-dbcp</artifactId>
             <version>7.0.55</version>
         </dependency>
-
 
     </dependencies>
 

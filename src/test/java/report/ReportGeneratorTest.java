@@ -1,11 +1,9 @@
 package report;
 
-import overdue.Overdue;
 import model.Book;
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
 import org.junit.Before;
 import org.junit.Test;
+import overdue.Overdue;
 
 import static org.junit.Assert.assertEquals;
 

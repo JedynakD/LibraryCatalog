@@ -13,6 +13,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
+import java.time.LocalDate;
+
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertFalse;
 import static org.junit.Assert.assertNotEquals;
@@ -24,7 +26,7 @@ import static org.junit.Assert.assertTrue;
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class)
 @RunWith(SpringJUnit4ClassRunner.class)
 public class LibraryCatalogServiceImplTest {
-    private static final long DEFAULT_DATE = 0L;
+    private static final LocalDate DEFAULT_DATE = LocalDate.MIN;
     private static final String BOOK_NAME_EXAMPLE = "Some book";
 
     private Book book;

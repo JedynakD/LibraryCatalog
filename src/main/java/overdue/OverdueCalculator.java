@@ -1,17 +1,15 @@
 package overdue;
 
 import model.Book;
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
-import org.joda.time.Days;
 
+import java.time.Duration;
+import java.time.LocalDate;
 import java.util.Set;
 
-/**
- * Created by Damian on 2016-08-19.
- */
+import static java.time.temporal.ChronoUnit.DAYS;
+
 public final class OverdueCalculator {
-    private static final long BOOK_RETURNED = 0L;
+    private static final LocalDate BOOK_RETURNED = LocalDate.MIN;
     public static final int DEFAULT_MAX_LOAN_PERIOD_IN_DAYS = 5;
     public static final int DEFAULT_ONE_DAY_OVERDUE_FEE = 10;
 
@@ -56,13 +54,11 @@ public final class OverdueCalculator {
     }
 
     private int returnDaysSinceCheckOut(Book book) {
-        DateTime checkOutTime = new DateTime(book.getCheckOutTime());
-        Days days = Days.daysBetween(checkOutTime, returnTodayTime());
-        return days.getDays();
+        return (int) DAYS.between(book.getCheckOutTime(), returnTodayTime());
     }
 
-    private DateTime returnTodayTime() {
-        return new DateTime(DateTimeZone.UTC);
+    private LocalDate returnTodayTime() {
+        return LocalDate.now();
     }
 
     public int calculateFeeForOne(Book book) {

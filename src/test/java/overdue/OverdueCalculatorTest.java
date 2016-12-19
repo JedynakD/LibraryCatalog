@@ -1,20 +1,16 @@
 package overdue;
 
 import model.Book;
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.HashSet;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * Created by Damian on 2016-08-19.
- */
 public class OverdueCalculatorTest {
 
     private OverdueCalculator overdueCalculator;
@@ -30,7 +26,7 @@ public class OverdueCalculatorTest {
 
     @Test
     public void shouldReturnOverdueWithDaysLeftFiveAndOverdueZeroWhenBookCheckedOutToday() {
-        long yesterday = returnTodayTime().getMillis();
+        LocalDate yesterday = returnTodayTime();
         Mockito.when(firstBook.getCheckOutTime()).thenReturn(yesterday);
 
         Overdue actual = overdueCalculator.returnOverdueForBook(firstBook);
@@ -40,7 +36,7 @@ public class OverdueCalculatorTest {
 
     @Test
     public void shouldReturnOverdueWithDaysLeftZeroAndOverdueZeroWhenBookCheckedFiveDaysAgo() {
-        long fiveDaysAgo = returnTodayTime().minusDays(5).getMillis();
+        LocalDate fiveDaysAgo = returnTodayTime().minusDays(5);
         Mockito.when(firstBook.getCheckOutTime()).thenReturn(fiveDaysAgo);
 
         Overdue actual = overdueCalculator.returnOverdueForBook(firstBook);
@@ -50,7 +46,7 @@ public class OverdueCalculatorTest {
 
     @Test
     public void shouldReturnOverdueWithDaysLeftZeroAndOverdueOneWhenBookCheckedSixDaysAgo() {
-        long sixDaysAgo = returnTodayTime().minusDays(6).getMillis();
+        LocalDate sixDaysAgo = returnTodayTime().minusDays(6);
         Mockito.when(firstBook.getCheckOutTime()).thenReturn(sixDaysAgo);
 
         Overdue actual = overdueCalculator.returnOverdueForBook(firstBook);
@@ -60,7 +56,7 @@ public class OverdueCalculatorTest {
 
     @Test
     public void shouldReturnOverdueWithDaysLeftZeroAndOverdueTenWhenBookCheckedFifteenDaysAgo() {
-        long fifteenDaysAgo = returnTodayTime().minusDays(15).getMillis();
+        LocalDate fifteenDaysAgo = returnTodayTime().minusDays(15);
         Mockito.when(firstBook.getCheckOutTime()).thenReturn(fifteenDaysAgo);
 
         Overdue actual = overdueCalculator.returnOverdueForBook(firstBook);
@@ -70,7 +66,7 @@ public class OverdueCalculatorTest {
 
     @Test
     public void shouldReturnFeeZeroWhenBookIsNotOverdue() {
-        long yesterday = returnTodayTime().minusDays(1).getMillis();
+        LocalDate yesterday = returnTodayTime().minusDays(1);
         Mockito.when(firstBook.getCheckOutTime()).thenReturn(yesterday);
 
         int actual = overdueCalculator.calculateFeeForOne(firstBook);
@@ -80,7 +76,7 @@ public class OverdueCalculatorTest {
 
     @Test
     public void shouldReturnFeeTenWhenBookIsOneDayOverdue() {
-        long sixDaysAgo = returnTodayTime().minusDays(6).getMillis();
+        LocalDate sixDaysAgo = returnTodayTime().minusDays(6);
         Mockito.when(firstBook.getCheckOutTime()).thenReturn(sixDaysAgo);
 
         int actual = overdueCalculator.calculateFeeForOne(firstBook);
@@ -91,7 +87,7 @@ public class OverdueCalculatorTest {
 
     @Test
     public void shouldReturnFeeTwentyWhenTwoBooksAreOneDayOverdue() {
-        long sixDaysAgo = returnTodayTime().minusDays(6).getMillis();
+        LocalDate sixDaysAgo = returnTodayTime().minusDays(6);
         Mockito.when(firstBook.getCheckOutTime()).thenReturn(sixDaysAgo);
         Mockito.when(secondBook.getCheckOutTime()).thenReturn(sixDaysAgo);
 
@@ -100,7 +96,7 @@ public class OverdueCalculatorTest {
         assertEquals(20, actual);
     }
 
-    private DateTime returnTodayTime() {
-        return new DateTime(DateTimeZone.UTC);
+    private LocalDate returnTodayTime() {
+        return LocalDate.now();
     }
 }

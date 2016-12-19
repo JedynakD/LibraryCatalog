@@ -18,6 +18,8 @@ public class BookDAOImpl implements BookDAO {
     @Autowired
     private SessionFactory sessionFactory;
 
+    private Book EMPTY_BOOK = new Book("", "");
+
     @Override
     public Book getBookByName(String bookName) {
         Session session = sessionFactory.getCurrentSession();
@@ -29,7 +31,7 @@ public class BookDAOImpl implements BookDAO {
         if (!books.isEmpty()) {
             return books.get(0);
         }
-        return new Book("", "");
+        return EMPTY_BOOK;
     }
 
     @Override
@@ -41,9 +43,9 @@ public class BookDAOImpl implements BookDAO {
     @Override
     public Book getBookByID(long id) {
         Session session = sessionFactory.getCurrentSession();
-        Book book = (Book) session.get(Book.class, id);
+        Book book = session.get(Book.class, id);
         if (book == null) {
-            return new Book("", "");
+            return EMPTY_BOOK;
         }
         return book;
     }
