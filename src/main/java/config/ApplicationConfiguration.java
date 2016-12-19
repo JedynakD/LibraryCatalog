@@ -13,9 +13,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.sql.DataSource;
 import java.util.Properties;
 
-/**
- * Created by Damian on 2016-08-10.
- */
 @Configuration
 @EnableTransactionManagement
 @ComponentScan(basePackages = {"dao", "service"})
@@ -32,17 +29,17 @@ public class ApplicationConfiguration {
     private static Properties getHibernateProperties() {
         Properties properties = new Properties();
         properties.put("hibernate.show_sql", "true");
-        properties.put("hibernate.dialect", "org.hibernate.dialect.Oracle10gDialect");
+        properties.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
         properties.put("hibernate.hbm2ddl.auto", "update");
         return properties;
     }
 
     private DataSource oracleDataSource() {
         BasicDataSource dataSource = new BasicDataSource();
-        dataSource.setDriverClassName("oracle.jdbc.OracleDriver");
-        dataSource.setUrl("jdbc:oracle:thin:@//127.0.0.1:1521/xe");
-        dataSource.setUsername("LIBRARY_CATALOG");
-        dataSource.setPassword("pass");
+        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+        dataSource.setUrl("jdbc:mysql://localhost/books");
+        dataSource.setUsername("root");
+        dataSource.setPassword("password");
         return dataSource;
     }
 
