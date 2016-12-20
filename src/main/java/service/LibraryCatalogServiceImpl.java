@@ -8,9 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 
-/**
- * Created by Damian on 2016-08-16.
- */
 @Service
 public class LibraryCatalogServiceImpl implements LibraryCatalogService {
     @Autowired

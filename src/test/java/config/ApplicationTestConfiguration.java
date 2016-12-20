@@ -14,9 +14,6 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import javax.sql.DataSource;
 import java.util.Properties;
 
-/**
- * Created by Damian on 2016-08-11.
- */
 public class ApplicationTestConfiguration {
     @Bean
     public BookDAO getBookDAO() {
