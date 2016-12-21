@@ -1,7 +1,7 @@
-package report;
+package library.report;
 
 import model.Book;
-import overdue.Overdue;
+import library.overdue.Overdue;
 
 /**
  * Created by Damian on 2016-08-18.
@@ -17,7 +17,7 @@ public final class ReportGenerator {
                     .append(book.getAuthorName())
                     .append(" is ")
                     .append(Math.abs(overdue.getDaysOverdue()))
-                    .append(" days overdue.")
+                    .append(" days library.overdue.")
                     .append(" Days left: ")
                     .append(overdue.getDaysLeftToOverdue())
                     .append("\n");

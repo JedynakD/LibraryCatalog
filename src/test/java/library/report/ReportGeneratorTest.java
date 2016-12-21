@@ -1,9 +1,9 @@
-package report;
+package library.report;
 
 import model.Book;
 import org.junit.Before;
 import org.junit.Test;
-import overdue.Overdue;
+import library.overdue.Overdue;
 
 import static org.junit.Assert.assertEquals;
 
@@ -12,7 +12,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class ReportGeneratorTest {
     private static final String REPORT_FIRST_PART = "To Kill a Mockingbird, Harper Lee is ";
-    private static final String REPORT_SECOND_PART = " days overdue. Days left: ";
+    private static final String REPORT_SECOND_PART = " days library.overdue. Days left: ";
 
     private Book book;
 
