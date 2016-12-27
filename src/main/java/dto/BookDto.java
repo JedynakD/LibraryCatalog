@@ -1,6 +1,11 @@
 package dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import model.User;
+import serializer.LocalDateDeserializer;
+import serializer.LocalDateSerializer;
 
 import java.time.LocalDate;
 
@@ -13,6 +18,8 @@ public class BookDto {
 
     private boolean isCheckedOut;
 
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate checkOutTime;
 
     private User user;
@@ -49,6 +56,7 @@ public class BookDto {
         isCheckedOut = checkedOut;
     }
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
     public LocalDate getCheckOutTime() {
         return checkOutTime;
     }

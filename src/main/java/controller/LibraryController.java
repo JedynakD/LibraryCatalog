@@ -4,6 +4,7 @@ import dto.BookDto;
 import model.Book;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import service.LibraryCatalogService;
@@ -17,14 +18,23 @@ public class LibraryController {
     private LibraryCatalogService libraryCatalogService;
 
     @RequestMapping(value = "/{name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public BookDto getBook(@PathVariable String name) {
-        Book book = libraryCatalogService.checkOut(name);
-        BookDto bookDto = toDTO(book);
-        return bookDto;
+    public BookDto getBookByName(@PathVariable String name) {
+        Book book = libraryCatalogService.checkOutFromCatalog(name);
+        return toDTO(book);
     }
 
+    @RequestMapping(value = "/insertBook", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public void insertBook(@RequestBody BookDto bookDto) {
+        libraryCatalogService.returnBookToCatalog(toBook(bookDto));
+    }
+
+
     private BookDto toDTO(Book book) {
-        BookDto bookDto = modelMapper.map(book, BookDto.class);
-        return bookDto;
+        return modelMapper.map(book, BookDto.class);
+    }
+
+    private Book toBook(BookDto bookDto) {
+        return modelMapper.map(bookDto, Book.class);
     }
 }
