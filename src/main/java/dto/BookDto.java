@@ -1,6 +1,7 @@
 package dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import model.User;
@@ -10,66 +11,32 @@ import serializer.LocalDateSerializer;
 import java.time.LocalDate;
 
 public class BookDto {
-    private long isbn;
+    public final long isbn;
 
-    private String name;
+    public final String name;
 
-    private String authorName;
+    public final String authorName;
 
-    private boolean isCheckedOut;
+    public final boolean isCheckedOut;
 
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
-    private LocalDate checkOutTime;
+    public final LocalDate checkOutTime;
 
-    private User user;
+    public final User user;
 
-    public long getIsbn() {
-        return isbn;
-    }
-
-    public void setIsbn(long isbn) {
+    @JsonCreator
+    public BookDto(@JsonProperty("isbn") long isbn,
+                   @JsonProperty("name") String name,
+                   @JsonProperty("authorName") String authorName,
+                   @JsonProperty("isCheckedOut") boolean isCheckedOut,
+                   @JsonProperty("checkOutTime") LocalDate checkOutTime,
+                   @JsonProperty("user") User user) {
         this.isbn = isbn;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
         this.name = name;
-    }
-
-    public String getAuthorName() {
-        return authorName;
-    }
-
-    public void setAuthorName(String authorName) {
         this.authorName = authorName;
-    }
-
-    public boolean isCheckedOut() {
-        return isCheckedOut;
-    }
-
-    public void setCheckedOut(boolean checkedOut) {
-        isCheckedOut = checkedOut;
-    }
-
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    public LocalDate getCheckOutTime() {
-        return checkOutTime;
-    }
-
-    public void setCheckOutTime(LocalDate checkOutTime) {
+        this.isCheckedOut = isCheckedOut;
         this.checkOutTime = checkOutTime;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
         this.user = user;
     }
 }

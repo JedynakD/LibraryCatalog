@@ -29,9 +29,9 @@ public class LibraryController {
         libraryCatalogService.returnBookToCatalog(toBook(bookDto));
     }
 
-
     private BookDto toDTO(Book book) {
-        return modelMapper.map(book, BookDto.class);
+        return new BookDto(book.getIsbn(), book.getName(), book.getAuthorName(),
+                book.isCheckedOut(), book.getCheckOutTime(), book.getUser());
     }
 
     private Book toBook(BookDto bookDto) {
