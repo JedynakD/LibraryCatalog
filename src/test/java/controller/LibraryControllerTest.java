@@ -1,6 +1,6 @@
 package controller;
 
-import config.AppTestInitializer;
+import config.ApplicationTestInitializer;
 import config.WebTestConfiguration;
 import dao.BookDAO;
 import model.Book;
@@ -27,7 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = {AppTestInitializer.class, WebTestConfiguration.class})
+@SpringApplicationConfiguration(classes = {ApplicationTestInitializer.class, WebTestConfiguration.class})
 @WebAppConfiguration
 public class LibraryControllerTest {
     @Autowired

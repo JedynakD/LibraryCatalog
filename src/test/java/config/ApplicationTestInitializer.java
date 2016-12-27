@@ -3,7 +3,7 @@ package config;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-public class AppTestInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
+public class ApplicationTestInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
