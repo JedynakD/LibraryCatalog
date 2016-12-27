@@ -20,9 +20,6 @@ import static junit.framework.TestCase.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
-/**
- * Created by Damian on 2016-08-16.
- */
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class)
 @RunWith(SpringJUnit4ClassRunner.class)
 public class LibraryCatalogServiceImplTest {
@@ -48,7 +45,7 @@ public class LibraryCatalogServiceImplTest {
         Mockito.when(bookTestDAO.getBookByName(BOOK_NAME_EXAMPLE)).thenReturn(book);
 
         //when
-        book = libraryCatalogService.checkOut(BOOK_NAME_EXAMPLE);
+        book = libraryCatalogService.checkOutFromCatalog(BOOK_NAME_EXAMPLE);
 
         //then
         assertTrue(book.isCheckedOut());
@@ -57,7 +54,7 @@ public class LibraryCatalogServiceImplTest {
     @Test
     public void shouldReturnFalseWhenBookIsReturned() {
         //when
-        libraryCatalogService.returnBook(book);
+        libraryCatalogService.returnBookToCatalog(book);
 
         //then
         assertFalse(book.isCheckedOut());
@@ -66,7 +63,7 @@ public class LibraryCatalogServiceImplTest {
     @Test
     public void shouldReturnBookWithZeroCheckoutDateWhenBookIsReturned() {
         //when
-        libraryCatalogService.returnBook(book);
+        libraryCatalogService.returnBookToCatalog(book);
 
         //then
         assertEquals(DEFAULT_DATE, book.getCheckOutTime());
@@ -78,7 +75,7 @@ public class LibraryCatalogServiceImplTest {
         Mockito.when(bookTestDAO.getBookByName(BOOK_NAME_EXAMPLE)).thenReturn(book);
 
         //when
-        Book book = libraryCatalogService.checkOut(BOOK_NAME_EXAMPLE);
+        Book book = libraryCatalogService.checkOutFromCatalog(BOOK_NAME_EXAMPLE);
 
         //then
         assertNotEquals(DEFAULT_DATE, book.getCheckOutTime());
