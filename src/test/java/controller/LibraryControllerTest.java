@@ -23,6 +23,7 @@ import java.nio.charset.Charset;
 
 import static org.hamcrest.core.Is.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -66,11 +67,13 @@ public class LibraryControllerTest {
         mockMvc.perform(get("/LOTR")
                 .contentType(contentType))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.isbn", is(0)))
-                .andExpect(jsonPath("name", is("LOTR")))
-                .andExpect(jsonPath("authorName", is("LOTR")))
-                .andExpect(jsonPath("checkedOut", is(false)))
-                .andExpect(jsonPath("user").value(IsNull.nullValue()));
+                .andExpect(content().json(
+                        "{\"isbn\":0," +
+                                "\"name\":\"LOTR\"," +
+                                "\"authorName\":\"LOTR\"," +
+                                "\"checkOutTime\":{\"year\":-999999999,\"month\":\"JANUARY\",\"era\":\"BCE\",\"dayOfYear\":1,\"dayOfWeek\":\"MONDAY\",\"leapYear\":false,\"dayOfMonth\":1,\"monthValue\":1,\"chronology\":{\"calendarType\":\"iso8601\"," +
+                                "\"id\":\"ISO\"}}," +
+                                "\"user\":null," +
+                                "\"checkedOut\":false}"));
     }
-
 }

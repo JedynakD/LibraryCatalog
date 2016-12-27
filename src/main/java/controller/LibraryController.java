@@ -17,7 +17,6 @@ public class LibraryController {
     private LibraryCatalogService libraryCatalogService;
 
     @RequestMapping(value = "/{name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
     public BookDto getBook(@PathVariable String name) {
         Book book = libraryCatalogService.checkOut(name);
         BookDto bookDto = toDTO(book);
