@@ -4,7 +4,6 @@ import config.AppTestInitializer;
 import config.WebTestConfiguration;
 import dao.BookDAO;
 import model.Book;
-import org.hamcrest.core.IsNull;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,10 +20,9 @@ import service.LibraryCatalogService;
 
 import java.nio.charset.Charset;
 
-import static org.hamcrest.core.Is.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
@@ -51,8 +49,7 @@ public class LibraryControllerTest {
     public void setup() throws Exception {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
         Mockito.when(bookTestDAO.getBookByName("LOTR")).thenReturn(new Book("LOTR", "LOTR"));
-        Mockito.when(libraryCatalogService.checkOut("LOTR")).thenReturn(new Book("LOTR", "LOTR"));
-
+        Mockito.when(libraryCatalogService.checkOutFromCatalog("LOTR")).thenReturn(new Book("LOTR", "LOTR"));
     }
 
     @Test
@@ -71,9 +68,21 @@ public class LibraryControllerTest {
                         "{\"isbn\":0," +
                                 "\"name\":\"LOTR\"," +
                                 "\"authorName\":\"LOTR\"," +
-                                "\"checkOutTime\":{\"year\":-999999999,\"month\":\"JANUARY\",\"era\":\"BCE\",\"dayOfYear\":1,\"dayOfWeek\":\"MONDAY\",\"leapYear\":false,\"dayOfMonth\":1,\"monthValue\":1,\"chronology\":{\"calendarType\":\"iso8601\"," +
-                                "\"id\":\"ISO\"}}," +
+                                "\"checkOutTime\":\"-999999999-01-01\"," +
                                 "\"user\":null," +
-                                "\"checkedOut\":false}"));
+                                "\"isCheckedOut\":false}"));
+    }
+
+    @Test
+    public void should_return_status_ok_when_send_request_to_insert_book() throws Exception {
+        mockMvc.perform(put("/insertBook")
+                .contentType(contentType)
+                .content("{\"isbn\":0," +
+                        "\"name\":\"LOTR\"," +
+                        "\"authorName\":\"LOTR\"," +
+                        "\"checkOutTime\":\"2016-10-10\"," +
+                        "\"user\":null," +
+                        "\"isCheckedOut\":false}"))
+                .andExpect(status().isOk());
     }
 }
