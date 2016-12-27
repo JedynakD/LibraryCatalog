@@ -15,7 +15,7 @@ public class LibraryCatalogServiceImpl implements LibraryCatalogService {
 
     @Transactional
     @Override
-    public Book checkOut(String name) {
+    public Book checkOutFromCatalog(String name) {
         Book book = bookDAO.getBookByName(name);
         book.setCheckedOut(true);
         book.setCheckOutTime(LocalDate.now());
@@ -27,7 +27,7 @@ public class LibraryCatalogServiceImpl implements LibraryCatalogService {
 
     @Transactional
     @Override
-    public void returnBook(Book book) {
+    public void returnBookToCatalog(Book book) {
         book.setCheckedOut(false);
         book.setCheckOutTime(LocalDate.MIN);
         bookDAO.update(book);

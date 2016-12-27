@@ -4,7 +4,7 @@ import model.Book;
 
 
 public interface LibraryCatalogService {
-    Book checkOut(String name);
+    Book checkOutFromCatalog(String name);
 
-    void returnBook(Book book);
+    void returnBookToCatalog(Book book);
 }
