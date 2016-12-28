@@ -54,7 +54,7 @@ public class LibraryCatalogServiceImplTest {
     }
 
     @Test
-    public void shouldReturnTrueWhenBookIsCheckedOut() {
+    public void should_return_true_when_book_is_checkedOut() {
         //given
         Mockito.when(bookTestDAO.getBookByName(BOOK_NAME_EXAMPLE)).thenReturn(BOOK_EXAMPLE);
 
@@ -66,7 +66,7 @@ public class LibraryCatalogServiceImplTest {
     }
 
     @Test
-    public void shouldReturnFalseWhenBookIsReturned() {
+    public void should_return_false_when_book_is_returned() {
         //when
         libraryCatalogService.returnBookToCatalog(book);
 
@@ -75,7 +75,7 @@ public class LibraryCatalogServiceImplTest {
     }
 
     @Test
-    public void shouldReturnBookWithZeroCheckoutDateWhenBookIsReturned() {
+    public void should_return_book_with_zero_checkout_date_when_book_is_returned() {
         //when
         libraryCatalogService.returnBookToCatalog(book);
 
@@ -84,7 +84,7 @@ public class LibraryCatalogServiceImplTest {
     }
 
     @Test
-    public void shouldReturnBookWithDifferentThenZeroCheckoutDateWhenBookIsCheckedOut() {
+    public void should_return_book_with_different_then_zero_checkout_date_when_book_is_checkedOut() {
         //given
         Mockito.when(bookTestDAO.getBookByName(BOOK_NAME_EXAMPLE)).thenReturn(BOOK_EXAMPLE);
 
