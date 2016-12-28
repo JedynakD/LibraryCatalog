@@ -10,9 +10,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-/**
- * Created by Damian on 2016-08-17.
- */
 @Repository
 public class UserDAOImpl implements UserDAO {
     @Autowired

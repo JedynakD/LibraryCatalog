@@ -25,6 +25,8 @@ import static org.junit.Assert.assertTrue;
 public class LibraryCatalogServiceImplTest {
     private static final LocalDate DEFAULT_DATE = LocalDate.MIN;
     private static final String BOOK_NAME_EXAMPLE = "Some book";
+    private static final Book EMPTY_BOOK = new Book("", "");
+    private static final Book BOOK_EXAMPLE = new Book(BOOK_NAME_EXAMPLE, "");
 
     private Book book;
 
@@ -40,9 +42,21 @@ public class LibraryCatalogServiceImplTest {
     private LibraryCatalogService libraryCatalogService;
 
     @Test
+    public void should_return_empty_book_when_book_is_not_returned_to_catalog() {
+        //given
+        Mockito.when(bookTestDAO.getBookByName(BOOK_NAME_EXAMPLE)).thenReturn(EMPTY_BOOK);
+
+        //when
+        book = libraryCatalogService.checkOutFromCatalog(BOOK_NAME_EXAMPLE);
+
+        //then
+        assertEquals(EMPTY_BOOK, book);
+    }
+
+    @Test
     public void shouldReturnTrueWhenBookIsCheckedOut() {
         //given
-        Mockito.when(bookTestDAO.getBookByName(BOOK_NAME_EXAMPLE)).thenReturn(book);
+        Mockito.when(bookTestDAO.getBookByName(BOOK_NAME_EXAMPLE)).thenReturn(BOOK_EXAMPLE);
 
         //when
         book = libraryCatalogService.checkOutFromCatalog(BOOK_NAME_EXAMPLE);
@@ -72,7 +86,7 @@ public class LibraryCatalogServiceImplTest {
     @Test
     public void shouldReturnBookWithDifferentThenZeroCheckoutDateWhenBookIsCheckedOut() {
         //given
-        Mockito.when(bookTestDAO.getBookByName(BOOK_NAME_EXAMPLE)).thenReturn(book);
+        Mockito.when(bookTestDAO.getBookByName(BOOK_NAME_EXAMPLE)).thenReturn(BOOK_EXAMPLE);
 
         //when
         Book book = libraryCatalogService.checkOutFromCatalog(BOOK_NAME_EXAMPLE);

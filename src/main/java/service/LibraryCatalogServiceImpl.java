@@ -17,9 +17,9 @@ public class LibraryCatalogServiceImpl implements LibraryCatalogService {
     @Override
     public Book checkOutFromCatalog(String name) {
         Book book = bookDAO.getBookByName(name);
-        book.setCheckedOut(true);
-        book.setCheckOutTime(LocalDate.now());
         if (!book.equals(new Book("", ""))) {
+            book.setCheckedOut(true);
+            book.setCheckOutTime(LocalDate.now());
             bookDAO.update(book);
         }
         return book;

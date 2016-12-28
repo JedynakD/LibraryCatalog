@@ -10,9 +10,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-/**
- * Created by Damian on 2016-08-10.
- */
 @Repository
 public class BookDAOImpl implements BookDAO {
     @Autowired
